@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "dgSpecHash": "gHMnC7ipCMw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Wolf King\\vrchat-proximity-app\\VRChatProximityApp\\VRChatProximityApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Wolf King\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.8\\microsoft.net.illink.tasks.9.0.8.nupkg.sha512",
+    "C:\\Users\\Wolf King\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Wolf King\\.nuget\\packages\\rug.osc\\1.2.5\\rug.osc.1.2.5.nupkg.sha512",
+    "C:\\Users\\Wolf King\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.8\\microsoft.netcore.app.runtime.win-x64.9.0.8.nupkg.sha512",
+    "C:\\Users\\Wolf King\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.8\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.8.nupkg.sha512",
+    "C:\\Users\\Wolf King\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.8\\microsoft.aspnetcore.app.runtime.win-x64.9.0.8.nupkg.sha512",
+    "C:\\Users\\Wolf King\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\9.0.8\\microsoft.netcore.app.crossgen2.win-x64.9.0.8.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'Rug.Osc 1.2.5' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0-windows7.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\Wolf King\\vrchat-proximity-app\\VRChatProximityApp\\VRChatProximityApp.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Wolf King\\vrchat-proximity-app\\VRChatProximityApp\\VRChatProximityApp.csproj",
+      "libraryId": "Rug.Osc",
+      "targetGraphs": [
+        "net9.0-windows7.0"
+      ]
+    }
+  ]
+}
