@@ -1,2 +1,0 @@
-C:\Users\Wolf King\vrchat-proximity-app\VRChatProximityApp\publish\win-x64\VRChatProximityApp.pdb
-C:\Users\Wolf King\vrchat-proximity-app\VRChatProximityApp\publish\win-x64\VRChatProximityApp.exe
