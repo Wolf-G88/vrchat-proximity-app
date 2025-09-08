@@ -1,0 +1,40 @@
+# Build artifacts
+VRChatProximityApp/bin/
+VRChatProximityApp/obj/
+VRChatProximityApp/publish/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Visual Studio
+*.exe
+*.dll
+*.pdb
+*.cache
+*.tmp
+*.log
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large compiled files
+*.r2r.dll

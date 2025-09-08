@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <!-- Product Information -->
+  <Product Id="*" 
+           Name="VRChat Hybrid Proximity Engine" 
+           Language="1033" 
+           Version="1.0.0.0" 
+           Manufacturer="Wolf Clan Family" 
+           UpgradeCode="12345678-1234-1234-1234-123456789012">
+    
+    <Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine"
+             Description="Ultra-fast avatar proximity detection for VRChat"
+             Comments="Hybrid Zig+Go+Python proximity engine"
+             Keywords="VRChat, proximity, detection, avatar, gaming" />
+
+    <!-- Installation Media -->
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Features -->
+    <Feature Id="ProductFeature" Title="VRChat Proximity Engine" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ProgramMenuDir" />
+      <ComponentRef Id="DesktopShortcut" />
+      <ComponentRef Id="EnvironmentPath" />
+    </Feature>
+
+    <!-- Installation Directory Structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      
+      <!-- Program Files -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="Wolf Clan Family">
+          <Directory Id="INSTALLFOLDER" Name="VRChat Proximity Engine">
+            
+            <!-- Core Application Files -->
+            <Component Id="CoreFiles" Guid="11111111-1111-1111-1111-111111111111">
+              <File Id="HybridEngine" 
+                    Source="..\hybrid_proximity_engine.py" 
+                    KeyPath="yes" />
+              <File Id="FastVisionZig" 
+                    Source="..\fast_vision.zig" />
+              <File Id="FastNetworkGo" 
+                    Source="..\fast_network.go" />
+              <File Id="StandaloneDetector" 
+                    Source="..\standalone_proximity_detector.py" />
+              <File Id="GoMod" 
+                    Source="..\go.mod" />
+              <File Id="BuildScript" 
+                    Source="..\build_hybrid.bat" />
+              <File Id="RunScript" 
+                    Source="..\RUN_HYBRID_ENGINE.bat" />
+            </Component>
+
+            <!-- Documentation -->
+            <Component Id="Documentation" Guid="22222222-2222-2222-2222-222222222222">
+              <File Id="ReadmeFile" 
+                    Source="..\README.md" />
+              <File Id="ProjectStatus" 
+                    Source="..\PROJECT_STATUS.md" />
+              <File Id="TestingGuide" 
+                    Source="..\TESTING_GUIDE.md" />
+            </Component>
+
+            <!-- Pre-compiled Binaries (if available) -->
+            <Component Id="Binaries" Guid="33333333-3333-3333-3333-333333333333">
+              <File Id="ZigLibrary" 
+                    Source="..\fast_vision.dll" 
+                    Checksum="yes" />
+              <Condition>
+                <![CDATA[Installed OR (ZIGLIB_EXISTS="1")]]>
+              </Condition>
+            </Component>
+
+            <!-- Configuration Templates -->
+            <Directory Id="ConfigFolder" Name="config">
+              <Component Id="ConfigFiles" Guid="44444444-4444-4444-4444-444444444444">
+                <File Id="DefaultConfig" 
+                      Source="config\default_settings.yaml" />
+                <File Id="PresetClose" 
+                      Source="config\preset_close_range.yaml" />
+                <File Id="PresetFar" 
+                      Source="config\preset_long_range.yaml" />
+              </Component>
+            </Directory>
+
+            <!-- Examples and Templates -->
+            <Directory Id="ExamplesFolder" Name="examples">
+              <Component Id="ExampleFiles" Guid="55555555-5555-5555-5555-555555555555">
+                <File Id="BasicExample" 
+                      Source="examples\basic_usage.py" />
+                <File Id="AdvancedExample" 
+                      Source="examples\advanced_configuration.py" />
+              </Component>
+            </Directory>
+
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <!-- Start Menu -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="VRChat Proximity Engine">
+          <Component Id="ProgramMenuDir" Guid="66666666-6666-6666-6666-666666666666">
+            
+            <!-- Main Application Shortcut -->
+            <Shortcut Id="ApplicationStartMenuShortcut"
+                      Name="VRChat Proximity Engine"
+                      Description="Ultra-fast avatar proximity detection"
+                      Target="[INSTALLFOLDER]RUN_HYBRID_ENGINE.bat"
+                      WorkingDirectory="INSTALLFOLDER"
+                      Icon="AppIcon.exe" />
+            
+            <!-- Configuration Shortcut -->
+            <Shortcut Id="ConfigStartMenuShortcut"
+                      Name="Configure Proximity Settings"
+                      Description="Configure proximity detection settings"
+                      Target="[INSTALLFOLDER]hybrid_proximity_engine.py"
+                      WorkingDirectory="INSTALLFOLDER"
+                      Arguments="--config"
+                      Icon="ConfigIcon.exe" />
+            
+            <!-- Documentation Shortcut -->
+            <Shortcut Id="DocsStartMenuShortcut"
+                      Name="User Guide"
+                      Description="VRChat Proximity Engine documentation"
+                      Target="[INSTALLFOLDER]README.md"
+                      Icon="DocsIcon.exe" />
+            
+            <!-- Uninstall Shortcut -->
+            <Shortcut Id="UninstallProduct"
+                      Name="Uninstall VRChat Proximity Engine"
+                      Target="[SystemFolder]msiexec.exe"
+                      Arguments="/x [ProductCode]"
+                      Description="Uninstalls VRChat Proximity Engine" />
+            
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+            <RegistryValue Root="HKCU" 
+                          Key="Software\Wolf Clan Family\VRChat Proximity Engine" 
+                          Name="installed" 
+                          Type="integer" 
+                          Value="1" 
+                          KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <!-- Desktop -->
+      <Directory Id="DesktopFolder">
+        <Component Id="DesktopShortcut" Guid="77777777-7777-7777-7777-777777777777">
+          <Shortcut Id="DesktopShortcut"
+                    Name="VRChat Proximity Engine"
+                    Description="Ultra-fast avatar proximity detection"
+                    Target="[INSTALLFOLDER]RUN_HYBRID_ENGINE.bat"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="AppIcon.exe" />
+          <RegistryValue Root="HKCU" 
+                        Key="Software\Wolf Clan Family\VRChat Proximity Engine" 
+                        Name="desktop_shortcut" 
+                        Type="integer" 
+                        Value="1" 
+                        KeyPath="yes" />
+        </Component>
+      </Directory>
+
+    </Directory>
+
+    <!-- Environment Variables -->
+    <Component Id="EnvironmentPath" Directory="INSTALLFOLDER" Guid="88888888-8888-8888-8888-888888888888">
+      <Environment Id="PATH" 
+                   Name="PATH" 
+                   Value="[INSTALLFOLDER]" 
+                   Permanent="no" 
+                   Part="last" 
+                   Action="set" 
+                   System="yes" />
+      <RegistryValue Root="HKLM" 
+                    Key="Software\Wolf Clan Family\VRChat Proximity Engine" 
+                    Name="install_path" 
+                    Type="string" 
+                    Value="[INSTALLFOLDER]" 
+                    KeyPath="yes" />
+    </Component>
+
+    <!-- Registry Entries -->
+    <Component Id="RegistryEntries" Directory="INSTALLFOLDER" Guid="99999999-9999-9999-9999-999999999999">
+      <!-- Application Registration -->
+      <RegistryKey Root="HKLM" Key="Software\Wolf Clan Family\VRChat Proximity Engine">
+        <RegistryValue Name="Version" Type="string" Value="1.0.0" />
+        <RegistryValue Name="InstallPath" Type="string" Value="[INSTALLFOLDER]" />
+        <RegistryValue Name="Publisher" Type="string" Value="Wolf Clan Family" />
+        <RegistryValue Name="InstallDate" Type="string" Value="[Date]" />
+      </RegistryKey>
+      
+      <!-- File Associations -->
+      <RegistryKey Root="HKCR" Key=".vrprox">
+        <RegistryValue Type="string" Value="VRChatProximityConfig" />
+      </RegistryKey>
+      
+      <RegistryKey Root="HKCR" Key="VRChatProximityConfig">
+        <RegistryValue Type="string" Value="VRChat Proximity Configuration" />
+        <RegistryKey Key="DefaultIcon">
+          <RegistryValue Type="string" Value="[INSTALLFOLDER]hybrid_proximity_engine.py,0" />
+        </RegistryKey>
+        <RegistryKey Key="shell\open\command">
+          <RegistryValue Type="string" Value="python &quot;[INSTALLFOLDER]hybrid_proximity_engine.py&quot; &quot;%1&quot;" />
+        </RegistryKey>
+      </RegistryKey>
+      
+      <!-- Add/Remove Programs entry -->
+      <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\[ProductCode]">
+        <RegistryValue Name="DisplayName" Type="string" Value="VRChat Hybrid Proximity Engine" />
+        <RegistryValue Name="DisplayVersion" Type="string" Value="1.0.0" />
+        <RegistryValue Name="Publisher" Type="string" Value="Wolf Clan Family" />
+        <RegistryValue Name="InstallLocation" Type="string" Value="[INSTALLFOLDER]" />
+        <RegistryValue Name="EstimatedSize" Type="integer" Value="50000" />
+        <RegistryValue Name="HelpLink" Type="string" Value="https://github.com/wolfclan/vrchat-proximity" />
+        <RegistryValue Name="URLInfoAbout" Type="string" Value="https://github.com/wolfclan/vrchat-proximity" />
+        <RegistryValue Name="NoModify" Type="integer" Value="1" />
+        <RegistryValue Name="NoRepair" Type="integer" Value="1" />
+      </RegistryKey>
+    </Component>
+
+    <!-- Icons -->
+    <Icon Id="AppIcon.exe" SourceFile="icons\app_icon.ico" />
+    <Icon Id="ConfigIcon.exe" SourceFile="icons\config_icon.ico" />
+    <Icon Id="DocsIcon.exe" SourceFile="icons\docs_icon.ico" />
+    
+    <!-- Property for Add/Remove Programs icon -->
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.exe" />
+
+    <!-- Installation Properties -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="INSTALLFOLDER">
+      <RegistrySearch Id="FindInstallLocation"
+                      Root="HKLM"
+                      Key="Software\Wolf Clan Family\VRChat Proximity Engine"
+                      Name="InstallPath"
+                      Type="raw" />
+    </Property>
+
+    <!-- Prerequisites Check -->
+    <Property Id="PYTHONEXE">
+      <RegistrySearch Id="PythonFromRegistry"
+                      Root="HKLM"
+                      Key="SOFTWARE\Python\PythonCore\3.11\InstallPath"
+                      Name="ExecutablePath"
+                      Type="raw" />
+    </Property>
+
+    <!-- Custom Actions -->
+    <CustomAction Id="CheckPython" 
+                  BinaryKey="CheckPythonDLL" 
+                  DllEntry="CheckPythonInstalled" 
+                  Execute="immediate" />
+    
+    <CustomAction Id="InstallPythonDeps" 
+                  Directory="INSTALLFOLDER" 
+                  ExeCommand="python -m pip install websocket-client requests tkinter"
+                  Execute="deferred" 
+                  Impersonate="no" />
+    
+    <CustomAction Id="CompileZigModule"
+                  Directory="INSTALLFOLDER" 
+                  ExeCommand="cmd.exe /c build_hybrid.bat"
+                  Execute="deferred" 
+                  Impersonate="no" />
+
+    <!-- Installation Sequence -->
+    <InstallExecuteSequence>
+      <Custom Action="CheckPython" After="LaunchConditions" />
+      <Custom Action="InstallPythonDeps" After="InstallFiles">
+        NOT Installed
+      </Custom>
+      <Custom Action="CompileZigModule" After="InstallPythonDeps">
+        NOT Installed
+      </Custom>
+    </InstallExecuteSequence>
+
+    <!-- UI Configuration -->
+    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    
+    <!-- License Agreement -->
+    <WixVariable Id="WixUILicenseRtf" Value="license\license.rtf" />
+    
+    <!-- Custom Banner -->
+    <WixVariable Id="WixUIBannerBmp" Value="images\banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="images\dialog.bmp" />
+
+    <!-- Major Upgrade -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+  </Product>
+
+  <!-- Component Groups -->
+  <Fragment>
+    <ComponentGroup Id="ProductComponents">
+      <ComponentRef Id="CoreFiles" />
+      <ComponentRef Id="Documentation" />
+      <ComponentRef Id="Binaries" />
+      <ComponentRef Id="ConfigFiles" />
+      <ComponentRef Id="ExampleFiles" />
+      <ComponentRef Id="RegistryEntries" />
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>
